@@ -33,5 +33,27 @@ namespace Develhope.BusinessLogic
                     DeliveryDate = x.DeliveryDate
                 });
         }
+
+        public Task<Project> GetByIdAsync(int id)
+        {
+            return _projectRepository.GetByIdAsync(id);
+        }
+
+        public async Task DeleteByIdAsync(int id)
+        {
+            await _projectRepository.DeleteByIdAsync(id);
+        }
+
+        public async Task<List<ProjectListDto>> GetNotExpiredAsync()
+        {
+            return (await _projectRepository.GetNotExpiredAsync())
+                .ConvertAll(x => new ProjectListDto
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    DeliveryDate = x.DeliveryDate
+                });
+        }
+
     }
 }

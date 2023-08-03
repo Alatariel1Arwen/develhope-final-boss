@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using Develhope.BusinessLogic.Interfaces;
 using Develhope.Models;
 using Develhope.Models.DTOs;
+using Develhope.DataAccess;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Develhope.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/")]
     public class ProjectController : ControllerBase
     {
         private readonly IProjectService _projectService;
@@ -21,17 +22,25 @@ namespace Develhope.Controllers
         }
 
         [HttpGet]
-        [Route("All")]
+        [Route("all")]
         public async Task<List<ProjectListDto>> GetAllAsync()
         {
+
             return await _projectService.GetAllAsync();
         }
 
         [HttpGet]
+        [Route("expired")]
+        public async Task<List<ProjectListDto>> GetNotExpiredAsync()
+        { 
+            return await _projectService.GetNotExpiredAsync();
+        }
+
+        [HttpGet]
         [Route("{id}")]
-        public Task<List<ProjectListDto>> GetByIdAsync(int id)
+        public Task<Project> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return _projectService.GetByIdAsync(id);
         }
 
         [HttpPost]
@@ -48,9 +57,9 @@ namespace Develhope.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            await _projectService.DeleteByIdAsync(id);
         }
     }
 }

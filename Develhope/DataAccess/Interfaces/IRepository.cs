@@ -8,6 +8,7 @@ namespace Develhope.DataAccess.Interfaces
     public interface IRepository<T>
     {
         Task<List<T>> GetAllAsync();
+        Task<List<T>> GetNotExpiredAsync();
         Task<T> GetByIdAsync(int id);
         Task CreateAsync(T item);
         Task UpdateAsync(T item);

@@ -10,6 +10,10 @@ namespace Develhope.BusinessLogic.Interfaces
     public interface IProjectService
     {
         Task<List<ProjectListDto>> GetAllAsync();
+        Task<List<ProjectListDto>> GetNotExpiredAsync();
         Task CreateAsync(Project project);
+        Task <Project> GetByIdAsync(int id);
+        Task DeleteByIdAsync(int id);
+
     }
 }
